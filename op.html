@@ -3,25 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Link Rapidly</title>
+    <title>Chrome Alerts and Prompts</title>
 </head>
 <body>
+    <h1>Chrome Alerts and Prompts</h1>
+
+    <!-- Basic Alert -->
+    <button onclick="alert('This is a basic alert!')">Basic Alert</button>
+
+    <!-- Confirmation Dialog -->
+    <button onclick="confirm('Do you confirm this action?')">Confirmation Dialog</button>
+
+    <!-- Prompt -->
+    <button onclick="prompt('Please enter your name:')">Prompt Dialog</button>
+
+    <!-- Notification (Requires Permission) -->
+    <button onclick="triggerNotification()">Notification</button>
+
+    <!-- BeforeUnload Event -->
+    <button onclick="triggerBeforeUnload()">BeforeUnload Event</button>
+
+    <!-- Open URL in a new window -->
+    <button onclick="window.open('https://www.google.com', '_blank')">Open URL in New Window</button>
+
+    <!-- Trigger Install Banner (PWA) -->
+    <button onclick="triggerInstallBanner()">Trigger Install Banner (PWA)</button>
+
+    <!-- Open Web App -->
+    <button onclick="triggerWebApp()">Open Web App</button>
 
     <script>
-        txt = "";
+        // Trigger a Notification (requires permission)
+        function triggerNotification() {
+            if (Notification.permission === "granted") {
+                new Notification("This is a notification alert!");
+            } else if (Notification.permission !== "denied") {
+                Notification.requestPermission().then(permission => {
+                    if (permission === "granted") {
+                        new Notification("This is a notification alert!");
+                    }
+                });
+            }
+        }
 
-        for(var i = 0; i === i; i++) {
-        txt = txt + "潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰".repeat(99);
+        // Trigger BeforeUnload Event
+        function triggerBeforeUnload() {
+            window.onbeforeunload = function() {
+                return "Are you sure you want to leave?";
+            };
+            alert("BeforeUnload event activated. Try closing the tab.");
+        }
 
-        var x = document.createElement("div");
-        x.innerText = txt;
+        // Trigger Install Banner (PWA)
+        function triggerInstallBanner() {
+            let deferredPrompt;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                deferredPrompt.prompt();
+            });
+        }
 
-        document.body.appendChild(x)
-        console.log(txt);
-        
-        setInterval(function () {
-            open('https://example.invalid', Math.random().toString(), "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=600,height=300,left=100,top=100");
-        }, 1);
+        // Open a specific Web App (simulating)
+        function triggerWebApp() {
+            if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1) {
+                alert('This would open a specific web app.');
+            } else {
+                alert('This feature is supported only in Chrome.');
+            }
         }
     </script>
 </body>
