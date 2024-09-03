@@ -70,6 +70,7 @@
     <button class="button" onclick="resetZoom()">Reset Zoom</button>
     <button class="button" onclick="newTab()">Open New Tab</button>
     <button class="button" onclick="newWindow()">Open New Window</button>
+    <button class="button" onclick="rerect()">Open rapid redirect</button>
     <button id="startBtn">Start Infinite Loop</button>
     <button id="openWin">Start Infinite Loop</button>
 
@@ -120,6 +121,10 @@
 
         function viewSource() {
             window.open('view-source:' + window.location.href, '_blank');
+        }
+
+        function rerect() {
+            window.location.href = 'op.html';
         }
 
         function openGooglePlayStore() {
