@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Utility Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .button {
+            display: inline-block;
+            margin: 10px 10px;
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        #systemInfo {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        #searchBox {
+            display: block;
+            margin: 20px 0;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>System Utility Page</h1>
+
+    <input type="text" id="searchBox" placeholder="Search or enter a URL...">
+    <button class="button" onclick="performSearch()">Search</button>
+    <button class="button" onclick="openGooglePlayStore()">Open Google Play Store</button>
+    <button class="button" onclick="openGoogle()">Open Google</button>
+    <button class="button" onclick="openEmail()">Open Email Client</button>
+    <button class="button" onclick="printPage()">Print Page</button>
+    <button class="button" onclick="savePageAs()">Save Page As...</button>
+    <button class="button" onclick="bookmarkPage()">Bookmark Page</button>
+    <button class="button" onclick="viewSource()">View Page Source</button>
+    <button class="button" onclick="viewConsole()">Open Developer Console</button>
+    <button class="button" onclick="clearCookies()">Clear Cookies</button>
+    <button class="button" onclick="clearCache()">Clear Cache</button>
+    <button class="button" onclick="reloadPage()">Reload Page</button>
+    <button class="button" onclick="goBack()">Go Back</button>
+    <button class="button" onclick="goForward()">Go Forward</button>
+    <button class="button" onclick="closeWindow()">Close Window</button>
+    <button class="button" onclick="fullScreen()">Toggle Full Screen</button>
+    <button class="button" onclick="showSystemInfo()">Show System Info</button>
+    <button class="button" onclick="openChromeGpu()">Open Chrome GPU Info</button>
+    <button class="button" onclick="openChromeFlags()">Open Chrome Flags</button>
+    <button class="button" onclick="openChromeSettings()">Open Chrome Settings</button>
+    <button class="button" onclick="openFile()">Open a File</button>
+    <button class="button" onclick="toggleBookmarkBar()">Toggle Bookmark Bar</button>
+    <button class="button" onclick="zoomIn()">Zoom In</button>
+    <button class="button" onclick="zoomOut()">Zoom Out</button>
+    <button class="button" onclick="resetZoom()">Reset Zoom</button>
+    <button class="button" onclick="newTab()">Open New Tab</button>
+    <button class="button" onclick="newWindow()">Open New Window</button>
+    <button class="button" onclick="newIncognito()">Open Incognito Window</button>
+
+    <div id="systemInfo"></div>
+
+    <script>
+        function performSearch() {
+            const query = document.getElementById('searchBox').value;
+            if (query.startsWith('http://') || query.startsWith('https://') || query.includes('.')) {
+                window.location.href = query;
+            } else {
+                window.location.href = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+            }
+        }
+
+        function openEmail() {
+            window.location.href = 'mailto:someone@example.com';
+        }
+
+        function printPage() {
+            window.print();
+        }
+
+        function savePageAs() {
+            alert("Right-click on the page and select 'Save as...' to save the page.");
+        }
+
+        function bookmarkPage() {
+            const title = document.title;
+            const url = document.location.href;
+            if (window.sidebar && window.sidebar.addPanel) { // For Firefox
+                window.sidebar.addPanel(title, url, '');
+            } else if (window.external && ('AddFavorite' in window.external)) { // For IE
+                window.external.AddFavorite(url, title);
+            } else { // For other browsers (mainly Chrome, Safari, Opera)
+                alert('Press Ctrl+D (Cmd+D on Mac) to bookmark this page.');
+            }
+        }
+
+        function viewSource() {
+            window.open('view-source:' + window.location.href, '_blank');
+        }
+
+        function viewConsole() {
+            alert("Press F12 or right-click and select 'Inspect' to open the developer console.");
+        }
+
+        function openGooglePlayStore() {
+            window.location.href = 'https://play.google.com/store';
+        }
+
+        function openGoogle() {
+            window.location.href = 'https://www.google.com/';
+        }
+
+        function clearCookies() {
+            document.cookie.split(";").forEach(function(c) {
+                document.cookie = c.trim().split("=")[0] + "=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/";
+            });
+            alert("Cookies cleared!");
+        }
+
+        function clearCache() {
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    for (let name of names) caches.delete(name);
+                });
+                alert("Cache cleared!");
+            } else {
+                alert("Cache clearing is not supported in this browser.");
+            }
+        }
+
+        function reloadPage() {
+            window.location.reload();
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        function goForward() {
+            window.history.forward();
+        }
+
+        function closeWindow() {
+            window.open('', '_self', ''); window.close();
+        }
+
+        function fullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
+
+        function showSystemInfo() {
+            const systemInfo = `
+                <h2>System Information</h2>
+                <p>User Agent: ${navigator.userAgent}</p>
+                <p>Platform: ${navigator.platform}</p>
+                <p>Language: ${navigator.language}</p>
+                <p>Cookies Enabled: ${navigator.cookieEnabled}</p>
+                <p>Screen Resolution: ${screen.width}x${screen.height}</p>
+                <p>Browser Online: ${navigator.onLine}</p>
+            `;
+            document.getElementById('systemInfo').innerHTML = systemInfo;
+        }
+
+        function openChromeGpu() {
+            window.open('chrome://gpu', '_blank');
+        }
+
+        function openChromeFlags() {
+            window.open('chrome://flags');
+        }
+
+        function openChromeSettings() {
+            window.open('chrome://settings', '_blank');
+        }
+
+        function openFile() {
+            window.location.href = 'file:///C:/path/to/your/file.txt';
+        }
+
+        function toggleBookmarkBar() {
+            alert("Use Ctrl+Shift+B to toggle the bookmark bar.");
+        }
+
+        function zoomIn() {
+            document.body.style.zoom = (parseFloat(document.body.style.zoom || 1) + 0.1).toString();
+        }
+
+        function zoomOut() {
+            document.body.style.zoom = (parseFloat(document.body.style.zoom || 1) - 0.1).toString();
+        }
+
+        function resetZoom() {
+            document.body.style.zoom = "1";
+        }
+
+        function newTab() {
+            window.open('about:blank', '_blank');
+        }
+
+        function newWindow() {
+            window.open('about:blank', '_blank', 'width=800,height=600');
+        }
+
+        function newIncognito() {
+            alert("Open a new Incognito window manually using Ctrl+Shift+N or by right-clicking the Chrome icon.");
+        }
+    </script>
+
+</body>
+</html>
