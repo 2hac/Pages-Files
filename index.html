@@ -52,12 +52,10 @@
     <button class="button" onclick="performSearch()">Search</button>
     <button class="button" onclick="openGooglePlayStore()">Open Google Play Store</button>
     <button class="button" onclick="openGoogle()">Open Google</button>
+    <button class="button" onclick="openChromeWeb()">Open Chrome WebStore</button>
     <button class="button" onclick="openEmail()">Open Email Client</button>
     <button class="button" onclick="printPage()">Print Page</button>
-    <button class="button" onclick="savePageAs()">Save Page As...</button>
-    <button class="button" onclick="bookmarkPage()">Bookmark Page</button>
     <button class="button" onclick="viewSource()">View Page Source</button>
-    <button class="button" onclick="viewConsole()">Open Developer Console</button>
     <button class="button" onclick="clearCookies()">Clear Cookies</button>
     <button class="button" onclick="clearCache()">Clear Cache</button>
     <button class="button" onclick="reloadPage()">Reload Page</button>
@@ -66,17 +64,12 @@
     <button class="button" onclick="closeWindow()">Close Window</button>
     <button class="button" onclick="fullScreen()">Toggle Full Screen</button>
     <button class="button" onclick="showSystemInfo()">Show System Info</button>
-    <button class="button" onclick="openChromeGpu()">Open Chrome GPU Info</button>
-    <button class="button" onclick="openChromeFlags()">Open Chrome Flags</button>
-    <button class="button" onclick="openChromeSettings()">Open Chrome Settings</button>
     <button class="button" onclick="openFile()">Open a File</button>
-    <button class="button" onclick="toggleBookmarkBar()">Toggle Bookmark Bar</button>
     <button class="button" onclick="zoomIn()">Zoom In</button>
     <button class="button" onclick="zoomOut()">Zoom Out</button>
     <button class="button" onclick="resetZoom()">Reset Zoom</button>
     <button class="button" onclick="newTab()">Open New Tab</button>
     <button class="button" onclick="newWindow()">Open New Window</button>
-    <button class="button" onclick="newIncognito()">Open Incognito Window</button>
 
     <div id="systemInfo"></div>
 
@@ -98,10 +91,6 @@
             window.print();
         }
 
-        function savePageAs() {
-            alert("Right-click on the page and select 'Save as...' to save the page.");
-        }
-
         function bookmarkPage() {
             const title = document.title;
             const url = document.location.href;
@@ -118,16 +107,16 @@
             window.open('view-source:' + window.location.href, '_blank');
         }
 
-        function viewConsole() {
-            alert("Press F12 or right-click and select 'Inspect' to open the developer console.");
-        }
-
         function openGooglePlayStore() {
             window.location.href = 'https://play.google.com/store';
         }
 
         function openGoogle() {
             window.location.href = 'https://www.google.com/';
+        }
+
+        function openChromeWeb() {
+            window.location.href = 'https://chromewebstore.google.com/';
         }
 
         function clearCookies() {
@@ -185,24 +174,8 @@
             document.getElementById('systemInfo').innerHTML = systemInfo;
         }
 
-        function openChromeGpu() {
-            window.open('chrome://gpu', '_blank');
-        }
-
-        function openChromeFlags() {
-            window.open('chrome://flags');
-        }
-
-        function openChromeSettings() {
-            window.open('chrome://settings', '_blank');
-        }
-
         function openFile() {
             window.location.href = 'file:///C:/path/to/your/file.txt';
-        }
-
-        function toggleBookmarkBar() {
-            alert("Use Ctrl+Shift+B to toggle the bookmark bar.");
         }
 
         function zoomIn() {
@@ -223,10 +196,6 @@
 
         function newWindow() {
             window.open('about:blank', '_blank', 'width=800,height=600');
-        }
-
-        function newIncognito() {
-            alert("Open a new Incognito window manually using Ctrl+Shift+N or by right-clicking the Chrome icon.");
         }
     </script>
 
