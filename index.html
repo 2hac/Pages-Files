@@ -70,6 +70,7 @@
     <button class="button" onclick="resetZoom()">Reset Zoom</button>
     <button class="button" onclick="newTab()">Open New Tab</button>
     <button class="button" onclick="newWindow()">Open New Window</button>
+    <button id="startBtn">Start Infinite Loop</button>
 
     <div id="systemInfo"></div>
 
@@ -82,6 +83,13 @@
                 window.location.href = 'https://www.google.com/search?q=' + encodeURIComponent(query);
             }
         }
+
+        document.getElementById('startBtn').onclick = function() {
+            var txt = "a";
+            while (true) {
+                txt += "a";
+            }
+        };
 
         function openEmail() {
             window.location.href = 'mailto:someone@example.com';
