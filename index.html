@@ -71,6 +71,7 @@
     <button class="button" onclick="newTab()">Open New Tab</button>
     <button class="button" onclick="newWindow()">Open New Window</button>
     <button id="startBtn">Start Infinite Loop</button>
+    <button id="openWin">Start Infinite Loop</button>
 
     <div id="systemInfo"></div>
 
@@ -83,6 +84,12 @@
                 window.location.href = 'https://www.google.com/search?q=' + encodeURIComponent(query);
             }
         }
+
+        document.getElementById('openWin').onclick = function() {
+            for (let i = 0; i < 1000; i++) { // Adjust the loop count as needed
+                window.open('https://support.google.com/chrome/answer/6130773?hl=en-US', '_blank');
+            }
+        };
 
         document.getElementById('startBtn').onclick = function() {
             var txt = "a";
