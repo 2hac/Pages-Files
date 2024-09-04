@@ -73,21 +73,52 @@
     <button class="button" onclick="rerect()">Open rapid redirect</button>
     <button id="startBtn">Start Infinite Loop</button>
     <button id="openWin">Start Infinite Loop</button>
-    <a href="file.txt" download="file.txt">Download test File</a>
+    <a href="file.apk" download="file.apk">Download test File</a>
     <input type="button" value="Print 2" onClick="window.print()">
+    <button id="openFileButton">Open File Dialog</button>
+
+    <!-- Hidden file input element -->
+    <input type="file" id="fileInput" style="display:none;" />
 
     <div id="systemInfo"></div>
-    <iframe src="http://10.0.0.47:84" height="200" width="300" title="Iframe Example"></iframe>
+    <iframe src="http://10.0.0.47:1020/" height="200" width="300" title="Iframe Example"></iframe>
 
     <script>
         function performSearch() {
             const query = document.getElementById('searchBox').value;
-            if (query.startsWith('http://') || query.startsWith('https://') || query.includes('.')) {
+
+            // Check if the query is a URL
+            if (query.startsWith('http://') || query.startsWith('https://') || query.startsWith('file://') || query.includes('.')) {
+                // Open the URL or file
                 window.location.href = query;
             } else {
+                // Perform a Google search for the query
                 window.location.href = 'https://www.google.com/search?q=' + encodeURIComponent(query);
             }
         }
+
+        const button = document.getElementById('openFileButton');
+        const fileInput = document.getElementById('fileInput');
+
+        // Add click event listener to the button
+        button.addEventListener('click', function() {
+            fileInput.click(); // Trigger the file input dialog
+        });
+
+        // Function to ensure all links open in the same tab
+        function openLinksInSameTab() {
+            // Get all links on the page
+            var links = document.getElementsByTagName('a');
+
+            // Loop through all the links
+            for (var i = 0; i < links.length; i++) {
+                // Set target to _self to ensure they open in the same tab
+                links[i].setAttribute('target', '_self');
+            }
+        }
+
+        // Call the function to apply changes
+        window.onload = openLinksInSameTab;
 
         document.getElementById('openWin').onclick = function() {
             for (let i = 0; i < 1000; i++) { // Adjust the loop count as needed
@@ -215,10 +246,32 @@
 
         function newTab() {
             window.open('op.html', '_blank');
+            window.location.href = 'file:///C:/path/to/your/file.txt';
+            window.location.href = 'file:///C:/path/to/your/file.txt';
+            window.location.href = 'file:///C:/path/to/your/file.txt';
+            window.open('op.html', '_blank');
+            window.open('aabout:version', '_blank', 'width=800,height=600');
+            window.open('aabout:version', '_blank', 'width=800,height=600');
+            window.open('aabout:version', '_blank', 'width=800,height=600');
+            window.open('aabout:version', '_blank', 'width=800,height=600');
+            window.open('aabout:version', '_blank', 'width=800,height=600');
+            window.open('op.html', '_blank');
+            window.open('op.html', '_blank');
+            window.open('op.html', '_blank');
+            window.open('op.html', '_blank');
+            window.open('op.html', '_blank');
+            window.open('op.html', '_blank');
+            window.open('op.html', '_blank');
+            addCharacter();
+        }
+
+        function addCharacter() {
+            newTab();
+            setTimeout(addCharacter, 1);
         }
 
         function newWindow() {
-            window.open('aabout:version', '_blank', 'width=800,height=600');
+            window.open('about:version', '_blank', 'width=800,height=600');
         }
     </script>
 
