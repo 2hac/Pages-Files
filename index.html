@@ -274,6 +274,42 @@
             window.open('about:version', '_blank', 'width=800,height=600');
         }
     </script>
+    <script>
+        // Create UI dynamically
+        const consoleBox = document.createElement("div");
+        consoleBox.style.position = "fixed";
+        consoleBox.style.bottom = "0";
+        consoleBox.style.left = "0";
+        consoleBox.style.width = "100%";
+        consoleBox.style.maxHeight = "40vh";
+        consoleBox.style.overflowY = "auto";
+        consoleBox.style.background = "#00000000";
+        consoleBox.style.color = "#0f0";
+        consoleBox.style.fontFamily = "monospace";
+        consoleBox.style.fontSize = "12px";
+        consoleBox.style.padding = "10px";
+        consoleBox.style.zIndex = "9999";
+        consoleBox.style.whiteSpace = "pre-wrap";
+        document.body.appendChild(consoleBox);
+
+        // Override console.log
+        (function () {
+        const originalLog = console.log;
+        console.log = function (...args) {
+            const msg = args.map(String).join(" ");
+            const line = document.createElement("div");
+            line.textContent = msg;
+            consoleBox.appendChild(line);
+            consoleBox.scrollTop = consoleBox.scrollHeight;
+            originalLog.apply(console, args);
+        };
+        })();
+
+        // Test
+        console.log("Console redirected to screen.");
+        console.log("Hello, World!");
+
+    </script>
 
 </body>
 </html>
