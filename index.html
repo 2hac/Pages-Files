@@ -76,6 +76,14 @@
     <a href="file.apk" download="file.apk">Download test File</a>
     <input type="button" value="Print 2" onClick="window.print()">
     <button id="openFileButton">Open File Dialog</button>
+    <!-- Add after your existing buttons -->
+    <button class="button" onclick="requestCamera()">Request Camera</button>
+    <button class="button" onclick="requestMicrophone()">Request Microphone</button>
+    <button class="button" onclick="requestLocation()">Request Location</button>
+    <button class="button" onclick="requestNotifications()">Request Notifications</button>
+    <button class="button" onclick="requestClipboard()">Request Clipboard Access</button>
+    <button class="button" onclick="openSiteSettings()">Open Site Settings</button>
+
 
     <!-- Hidden file input element -->
     <input type="file" id="fileInput" style="display:none;" />
@@ -243,6 +251,49 @@
         function resetZoom() {
             document.body.style.zoom = "1";
         }
+
+        function requestCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(() => alert('Camera permission granted'))
+                .catch(err => alert('Camera permission denied: ' + err));
+        }
+
+        function requestMicrophone() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(() => alert('Microphone permission granted'))
+                .catch(err => alert('Microphone permission denied: ' + err));
+        }
+
+        function requestLocation() {
+            navigator.geolocation.getCurrentPosition(
+                position => alert(`Location granted: ${position.coords.latitude}, ${position.coords.longitude}`),
+                err => alert('Location permission denied: ' + err.message)
+            );
+        }
+
+        function requestNotifications() {
+            Notification.requestPermission().then(permission => {
+                alert('Notification permission: ' + permission);
+                if (permission === 'granted') {
+                    new Notification('Permission granted!');
+                }
+            });
+        }
+
+        function requestClipboard() {
+            navigator.clipboard.readText().then(text => {
+                alert("Clipboard text: " + text);
+            }).catch(err => {
+                alert("Clipboard access denied: " + err);
+            });
+        }
+
+        function openSiteSettings() {
+            const origin = location.origin;
+            alert("Please manually open site settings for: " + origin + "\nYou can find it in the browser address bar.");
+            // Cannot be opened directly via JavaScript for security reasons
+        }
+
 
         function newTab() {
             window.open('op.html', '_blank');
